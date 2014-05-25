@@ -37,15 +37,30 @@ $defaultRight = array(
 <script>
 function colorLeft()
 {
+	var j=0, i = $('#yj').val().length;
+	var str1 = $('#yj').val();
+	while (j < i && $('#yj').val().indexOf(" ") != -1){ 
+		j++;
+		str1 = str1.replace(' ', "/");
+	}
+	$('#yj').val(str1);
 	var tempLeft =  $('#yj').val();
 	html = document.getElementById("content").innerHTML;
 	var reg = /^[0-9a-zA-Z ]+$/;
 	html =html.replace(/<\/?span[^>]*>/gi,'');
+	var arrTemp = html.split(/\<BR>| |\,/);
 	var str = tempLeft.replace(/\n/g, "|");
+	str = str.replace(/\//g,"|");
 	var keys = str.split('|');
 	for (var i=0; i<keys.length; i++) {
 		if(reg.test(keys[i])) {
-			html = html.replace(new RegExp(keys[i], 'ig'), "<span class='badge badge-warning'>" + keys[i]+ "</span>");
+			for(var a=0; a<arrTemp.length; a++) {
+				var strTemp = arrTemp[a];
+				if(keys[i].toLowerCase() == strTemp.toLowerCase()) {
+					html = html.replace(new RegExp(arrTemp[a], 'ig'), "<span class='badge badge-warning'>" + arrTemp[a]+ "</span>");
+					break;
+				}
+			}
 		}
 	}
 	document.getElementById("content").innerHTML=html;
@@ -56,23 +71,47 @@ function colorLeft()
 		var keys = str.split('|');
 		for (var i=0; i<keys.length; i++) {
 			if(reg.test(keys[i])) {
-				html = html.replace(new RegExp(keys[i], 'ig'), "<span class='badge badge-info'>" + keys[i]+ "</span>");
+				for(var a=0; a<arrTemp.length; a++) {
+					var strTemp = arrTemp[a];
+					if(keys[i].toLowerCase() == strTemp.toLowerCase()) {
+						html = html.replace(new RegExp(arrTemp[a], 'ig'), "<span class='badge badge-info'>" + arrTemp[a]+ "</span>");
+						break;
+					}
+				}
+				//html = html.replace(new RegExp(keys[i]), "<span class='badge badge-info'>" + keys[i]+ "</span>");
 			}
 		}
 		document.getElementById("content").innerHTML=html;
 	}
+	
 }
 function colorRight()
  {
+	var j=0, i = $('#yq').val().length;
+	var str1 = $('#yq').val();
+	while (j < i && $('#yq').val().indexOf(" ") != -1){ 
+		j++;
+		str1 = str1.replace(' ', "/");
+	}
+	$('#yq').val(str1);
 	var tempRight = $('#yq').val();
 	html = document.getElementById("content").innerHTML;
 	var reg = /^[0-9a-zA-Z ]+$/;
 	html =html.replace(/<\/?span[^>]*>/gi,'');
+	var arrTemp = html.split(/\<BR>| |\,/);
 	var str = tempRight.replace(/\n/g, "|");
+	str = str.replace(/\//g,"|");
 	var keys = str.split('|');
 	for (var i=0; i<keys.length; i++) {
 		if(reg.test(keys[i])) {
-			html = html.replace(new RegExp(keys[i], 'ig'), "<span class='badge badge-info'>" + keys[i]+ "</span>");
+			for(var a=0; a<arrTemp.length; a++) {
+				var strTemp = arrTemp[a];
+				if(keys[i].toLowerCase() == strTemp.toLowerCase()) {
+					html = html.replace(new RegExp(arrTemp[a], 'ig'), "<span class='badge badge-info'>" + arrTemp[a]+ "</span>");
+					break;
+				}
+			}
+			//html = html.replace(new RegExp(keys[i]), "<span class='badge badge-info'>" + keys[i]+ "</span>");
 		}
 	}
 	document.getElementById("content").innerHTML=html;
@@ -80,11 +119,20 @@ function colorRight()
 	html = document.getElementById("content").innerHTML;
 	if(tempLeft != '') {
 		var str = tempLeft.replace(/\n/g, "|");
+		str = str.replace(/\//g,"|");
 		var keys = str.split('|');
 		for (var i=0; i<keys.length; i++) {
 			if(reg.test(keys[i])) {
-				html = html.replace(new RegExp(keys[i], 'ig'), "<span class='badge badge-warning'>" + keys[i]+ "</span>");
+				for(var a=0; a<arrTemp.length; a++) {
+					var strTemp = arrTemp[a];
+					if(keys[i].toLowerCase() == strTemp.toLowerCase()) {
+						html = html.replace(new RegExp(arrTemp[a], 'ig'), "<span class='badge badge-warning'>" + arrTemp[a]+ "</span>");
+						break;
+					}
+				}
+				//html = html.replace(new RegExp(keys[i]), "<span class='badge badge-warning'>" + keys[i]+ "</span>");
 			}
+			
 		}
 		document.getElementById("content").innerHTML=html;
 	}
